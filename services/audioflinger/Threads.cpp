@@ -4000,6 +4000,10 @@ bool AudioFlinger::PlaybackThread::threadLoop()
             activeTracks.insert(activeTracks.end(), mActiveTracks.begin(), mActiveTracks.end());
 
             setHalLatencyMode_l();
+
+            for (const auto &track : mActiveTracks ) {
+                track->updateTeePatches();
+            }
         } // mLock scope ends
 
         if (mBytesRemaining == 0) {
